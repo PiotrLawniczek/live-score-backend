@@ -5,15 +5,16 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import p.lawniczek.dto.TableDto;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+
 @Slf4j
+@Service
 public class FindTableService implements FindTable {
 
     public void getTables() {
@@ -23,10 +24,10 @@ public class FindTableService implements FindTable {
             Document doc = Jsoup.connect(url).get();
 
             Element table = doc.select("table[class=table-template table-ranking]").first();
-            List<TableDto> team = new ArrayList<>();
 
             Elements tableRanking = table.select("td[class=team-name]");
 
+            List<TableDto> team = new ArrayList<>();
             for (Element tableElement : tableRanking) {
                 Element games = tableElement.nextElementSibling();
                 Element points = games.nextElementSibling();
