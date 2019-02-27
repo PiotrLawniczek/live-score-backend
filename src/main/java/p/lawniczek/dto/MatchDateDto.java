@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class MatchDate {
+public class MatchDateDto {
     private int day;
     private String monthAndYear;
     private String hour;

@@ -9,5 +9,5 @@ import java.util.List;
 @Builder
 public class TimetableDto {
     private int round;
-    private List<MatchDate> matchDate;
+    private List<MatchDto> matchDto;
 }
