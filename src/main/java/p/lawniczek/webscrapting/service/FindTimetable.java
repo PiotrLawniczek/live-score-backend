@@ -1,5 +1,7 @@
 package p.lawniczek.webscrapting.service;
 
+import p.lawniczek.dto.TimetableDto;
+
 public interface FindTimetable  {
-    void getTimetable();
+    TimetableDto getTimetable(Long roundNumber);
 }

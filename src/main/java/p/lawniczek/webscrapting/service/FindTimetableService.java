@@ -19,8 +19,8 @@ import java.util.List;
 @Slf4j
 public class FindTimetableService implements FindTimetable {
 
-    public void getTimetable() {
-        String url = "https://www.laczynaspilka.pl/rozgrywki/nizsze-ligi,26883.html?round=1";
+    public TimetableDto getTimetable(Long roundNumber) {
+        String url = "https://www.laczynaspilka.pl/rozgrywki/nizsze-ligi,26883.html?round=" + roundNumber;
 
         try {
             Document doc = Jsoup.connect(url).get();
@@ -38,7 +38,6 @@ public class FindTimetableService implements FindTimetable {
                         .monthAndYear(divDate.select("span[class=month]").first().text())
                         .hour(divDate.select("span[class=hour]").first().text())
                         .build();
-
 
                 Element divGameResult =
                         element.select("div[class=teams grid-38 grid-mt-48 grid-msw-48]").first();
@@ -61,17 +60,19 @@ public class FindTimetableService implements FindTimetable {
 
 
             }
-            TimetableDto build = TimetableDto
+            TimetableDto timetableDto = TimetableDto
                     .builder()
-                    .round(1)//TODO not static round, get from url
+                    .round(roundNumber)//TODO not static round, get from url
                     .matchDto(matchDtoList)
                     .build();
+            log.info(String.valueOf(timetableDto));
+            return timetableDto;
 
 
-            log.info(String.valueOf(build));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        return null;
     }
 }

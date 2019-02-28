@@ -21,7 +21,7 @@ public class HomeController {
     @GetMapping("/")
     public String home() {
         findTableService.getTables();
-        findTimetableService.getTimetable();
+       // findTimetableService.getTimetable(null);
         return null;
     }
 

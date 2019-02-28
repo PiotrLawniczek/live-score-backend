@@ -8,6 +8,6 @@ import java.util.List;
 @Data
 @Builder
 public class TimetableDto {
-    private int round;
+    private Long round;
     private List<MatchDto> matchDto;
 }

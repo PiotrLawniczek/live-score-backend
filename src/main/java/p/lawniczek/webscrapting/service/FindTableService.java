@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class FindTableService implements FindTable {
 
-    public void getTables() {
+    public List<TableDto> getTables() {
 
         String url = "https://www.laczynaspilka.pl/rozgrywki/nizsze-ligi,26883.html";
         try {
@@ -27,7 +27,7 @@ public class FindTableService implements FindTable {
 
             Elements tableRanking = table.select("td[class=team-name]");
 
-            List<TableDto> team = new ArrayList<>();
+            List<TableDto> tableDtoList = new ArrayList<>();
             for (Element tableElement : tableRanking) {
                 Element games = tableElement.nextElementSibling();
                 Element points = games.nextElementSibling();
@@ -36,7 +36,7 @@ public class FindTableService implements FindTable {
                 Element draws = looses.nextElementSibling();
                 Element goals = draws.nextElementSibling();
 
-                team.add(
+                tableDtoList.add(
                         TableDto.builder()
                                 .team(tableElement.text())
                                 .games(games.text())
@@ -48,10 +48,11 @@ public class FindTableService implements FindTable {
                                 .goalsConceded(Integer.parseInt(goals.text().split(":")[1]))
                                 .build());
             }
-            log.info("Table list" + team);
-
+            log.info("Table list" + tableDtoList);
+            return tableDtoList;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

@@ -1,5 +1,9 @@
 package p.lawniczek.webscrapting.service;
 
+import p.lawniczek.dto.TableDto;
+
+import java.util.List;
+
 public interface FindTable {
-    void getTables();
+    List<TableDto> getTables();
 }
