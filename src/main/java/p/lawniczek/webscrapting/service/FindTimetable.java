@@ -1,7 +1,11 @@
 package p.lawniczek.webscrapting.service;
 
-import p.lawniczek.dto.TimetableDto;
+import p.lawniczek.dto.MatchDto;
+import p.lawniczek.dto.RoundInfoDto;
+
+import java.util.List;
 
 public interface FindTimetable  {
-    TimetableDto getTimetable(Long roundNumber);
+    List<MatchDto> getTimetable(Long roundNumber);
+    RoundInfoDto getNearestRoundToDate();
 }
