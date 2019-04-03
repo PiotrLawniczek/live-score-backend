@@ -20,9 +20,9 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        findTableService.getTables();
-       // findTimetableService.getTimetable(null);
-        return null;
+      /*  findTableService.getTables();
+       // findTimetableService.getTimetable(null);*/
+        return "test";
     }
 
 
