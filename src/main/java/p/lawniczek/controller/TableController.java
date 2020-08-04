@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/table")
 public class TableController {
 
-    private FindTableService findTableService;
+    private final FindTableService findTableService;
 
     public TableController(FindTableService findTableService) {
         this.findTableService = findTableService;

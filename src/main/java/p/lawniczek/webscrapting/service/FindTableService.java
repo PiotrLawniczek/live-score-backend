@@ -1,30 +1,36 @@
 package p.lawniczek.webscrapting.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import p.lawniczek.dto.TableDto;
+import p.lawniczek.entity.Table;
+import p.lawniczek.entity.repository.TimetableRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class FindTableService implements FindTable {
 
-    public List<TableDto> getTables() {
+    private final TimetableRepository timetableRepository;
 
-        String url = "https://www.laczynaspilka.pl/rozgrywki/nizsze-ligi,26883.html";
+    public List<TableDto> getTables() {
+        String url = "https://www.laczynaspilka.pl/rozgrywki/nizsze-ligi,37275.html#";
         try {
             Document doc = Jsoup.connect(url).get();
 
             Element table = doc.select("table[class=table-template table-ranking]").first();
-
             Elements tableRanking = table.select("td[class=team-name]");
 
             List<TableDto> tableDtoList = new ArrayList<>();
@@ -49,9 +55,15 @@ public class FindTableService implements FindTable {
                                 .build());
             }
             log.info("Table list" + tableDtoList);
+            ModelMapper mapper = new ModelMapper();
+            timetableRepository.saveAll(
+                    tableDtoList.stream().map(
+                            o -> mapper.map(o, Table.class)
+                    ).collect(Collectors.toList()));
+
             return tableDtoList;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }
