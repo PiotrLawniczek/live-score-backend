@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @SuperBuilder(toBuilder = true)
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AbstractEntity {
+public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

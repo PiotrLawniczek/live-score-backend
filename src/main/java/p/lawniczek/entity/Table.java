@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-public class Table extends AbstractEntity {
+public class Table extends BaseEntity {
     private String team;
     private String games;
     private int points;
