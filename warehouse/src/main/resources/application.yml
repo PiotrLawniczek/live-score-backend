@@ -1,0 +1,16 @@
+
+server:
+  port: 9001
+spring:
+  application:
+    name: "warehouse"
+  cloud:
+    config:
+      uri: "http://localhost:9001"
+      fail-fast: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9010/eureka/
+
